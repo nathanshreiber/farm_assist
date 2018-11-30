@@ -1,34 +1,13 @@
 
 
-
-
-
-
-
-
-
 class Node:
 
 	#Initializer
-	def __init__(self,name,color,number):
+	def __init__(self,name,color,neighbors):
 		self.name = name
 		self.color = color
 		self.number = number
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		self.neighbors = neighbors
 
 
 
@@ -36,97 +15,99 @@ class Node:
 if __name__ == '__main__':
 	
 	#
-	firstFloorSlot = {
-		1:[2]
-		2:[1,3]
-		3:[2,4]
-		4:[3,5,35]
-		5:[4,35]
-		6:[5,7,36]
-		7:[6,8,17]
-		8:[7,9,16]
-		9:[8,15,16]
-		10:[9,11,14]
-		11:[10,12,14]
-		12:[11,13,14]
-		13:[12]
-		14:[10,11,12,15]
-		15:[9,14,16]
-		16:[8,15,17]
-		17:[7,16,18]
-		18:[17,19]
-		19:[18,20]
-		20:[19,21]
-		21:[20,22,38]
-		22:[21,23,39]
-		23:[22,24,40]
-		24:[23,25,41]
-		25:[24,26]
-		26:[25,26,41]
-		27:[26,28]
-		28:[27,28,42]
-		29:[28,30,43,44]
-		30:[28,31]
-		31:[30,32]
-		32:[31,33]
-		33:[32,34]
-		34:[33,35]
-		35:[4,5,34,36]
-		36:[6,35,37]
-		37:[36,38]
-		38:[21,37,39]
-		39:[22,38,40]
-		40:[23,39,41]
-		41:[24,26,40,42]
-		42:[28,41,43]
-		43:[28,42,44]
-		44:	[28,43]}
+	firstFloorSlot = 
+	{	
+		n1 = Node("Battenkill Valley Creamery","red",[2])
+		n2 = Node("Battenkill Valley Creamery","red",[1,3])
+		n3 = Node("Battenkill Valley Creamery","red",[2,4])
+		n4 = Node("Battenkill Valley Creamery","red",[3,5,35])
+		n5 = Node("Battenkill Valley Creamery","red",[4,35])
+		n6 = Node("Battenkill Valley Creamery","red",[5,7,36])
+		n7 = Node("Battenkill Valley Creamery","red",[6,8,17])
+		n8 = Node("Battenkill Valley Creamery","red",[7,9,16])
+		n9 = Node("Battenkill Valley Creamery","red",[8,15,16])
+		n10 = Node("Battenkill Valley Creamery","red",[9,11,14])
+		n11 = Node("Battenkill Valley Creamery","red",[10,12,14])
+		n12 = Node("Battenkill Valley Creamery","red",[11,13,14])
+		n13 = Node("Battenkill Valley Creamery","red",[12])
+		n14 = Node("Battenkill Valley Creamery","red",[10,11,12,15])
+		n15 = Node("Battenkill Valley Creamery","red",[9,14,16])
+		n16 = Node("Battenkill Valley Creamery","red",[8,15,17])
+		n17 = Node("Battenkill Valley Creamery","red",[7,16,18])
+		n18 = Node("Battenkill Valley Creamery","red",[17,19])
+		n19 = Node("Battenkill Valley Creamery","red",[18,20])
+		n20 = Node("Battenkill Valley Creamery","red",[19,21])
+		n21 = Node("Battenkill Valley Creamery","red",[20,22,38])
+		n22 = Node("Battenkill Valley Creamery","red",[21,23,39])
+		n23 = Node("Battenkill Valley Creamery","red",[22,24,40])
+		n24 = Node("Battenkill Valley Creamery","red",[23,25,41])
+		n25 = Node("Battenkill Valley Creamery","red",[24,26])
+		n26 = Node("Battenkill Valley Creamery","red",[25,26,41])
+		n27 = Node("Battenkill Valley Creamery","red",[26,28])
+		n28 = Node("Battenkill Valley Creamery","red",[27,28,42])
+		n29 = Node("Battenkill Valley Creamery","red",[28,30,43,44])
+		n30 = Node("Battenkill Valley Creamery","red",[28,31])
+		n31 = Node("Battenkill Valley Creamery","red",[30,32])
+		n32 = Node("Battenkill Valley Creamery","red",[31,33])
+		n33 = Node("Battenkill Valley Creamery","red",[32,34])
+		n34 = Node("Battenkill Valley Creamery","red",[33,35])
+		n35 = Node("Battenkill Valley Creamery","red",[4,5,34,36])
+		n36 = Node("Battenkill Valley Creamery","red",[6,35,37])
+		n37 = Node("Battenkill Valley Creamery","red",[36,38])
+		n38 = Node("Battenkill Valley Creamery","red",[21,37,39])
+		n39 = Node("Battenkill Valley Creamery","red",[22,38,40])
+		n40 = Node("Battenkill Valley Creamery","red",[23,39,41])
+		n41 = Node("Battenkill Valley Creamery","red",[24,26,40,42])
+		n42 = Node("Battenkill Valley Creamery","red",[28,41,43])
+		n43 = Node("Battenkill Valley Creamery","red",[28,42,44])
+		n44 = Node("Battenkill Valley Creamery","red",[28,43])
+	}
 
-		secondFloorSlot = {
-			45:[46]
-			46:[45,71]
-			47:[48,71,73]
-			48:[47,49,77]
-			49:[48,50]
-			50:[49,51]
-			51:[50,52]
-			52:[51,53]
-			53:[52,54]
-			54:[53,55]
-			55:[52,56,78]
-			56:[55,57,79]
-			57:[56,58]
-			58:[57,81]
-			59:[60,81,82]
-			60:[59,61,83]
-			61:[60,62]
-			62:[61,63]
-			63:[62,64]
-			64:[63,65,84]
-			65:[64,66]
-			66:[65,67,85]
-			67:[66,68]
-			68:[67,69,86]
-			69:[68,70]
-			70:[69,70]
-			71:[46,47,70,72]
-			72:[71,73]
-			73:[47,72,74]
-			74:[73,75]
-			75:[74,76]
-			76:[75,77]
-			77:[48,76]
-			78:[55,79]
-			79:[56,78]
-			80:[81,82]
-			81:[58,59,80]
-			82:[59,80]
-			83:[60]
-			84:[64]
-			85:[66]
-			86:[68]
-
-		}
+	secondFloorSlot = 
+	{
+		n45 = Node("Battenkill Valley Creamery","red",[46])
+		n46 = Node("Battenkill Valley Creamery","red",[45,71])
+		n47 = Node("Battenkill Valley Creamery","red",[48,71,73])
+		n48 = Node("Battenkill Valley Creamery","red",[47,49,77])
+		n49 = Node("Battenkill Valley Creamery","red",[48,50])
+		n50 = Node("Battenkill Valley Creamery","red",[49,51])
+		n51 = Node("Battenkill Valley Creamery","red",[50,52])
+		n52 = Node("Battenkill Valley Creamery","red",[51,53])
+		n53 = Node("Battenkill Valley Creamery","red",[52,54])
+		n54 = Node("Battenkill Valley Creamery","red",[53,55])
+		n55 = Node("Battenkill Valley Creamery","red",[52,56,78])
+		n56 = Node("Battenkill Valley Creamery","red",[55,57,79])
+		n57 = Node("Battenkill Valley Creamery","red",[56,58])
+		n58 = Node("Battenkill Valley Creamery","red",[57,81])
+		n59 = Node("Battenkill Valley Creamery","red",[60,81,82])
+		n60 = Node("Battenkill Valley Creamery","red",[59,61,83])
+		n61 = Node("Battenkill Valley Creamery","red",[60,62])
+		n62 = Node("Battenkill Valley Creamery","red",[61,63])
+		n63 = Node("Battenkill Valley Creamery","red",[62,64])
+		n64 = Node("Battenkill Valley Creamery","red",[63,65,84])
+		n65 = Node("Battenkill Valley Creamery","red",[64,66])
+		n66 = Node("Battenkill Valley Creamery","red",[65,67,85])
+		n67 = Node("Battenkill Valley Creamery","red",[66,68])
+		n68 = Node("Battenkill Valley Creamery","red",[67,69,86])
+		n69 = Node("Battenkill Valley Creamery","red",[68,70])
+		n70 = Node("Battenkill Valley Creamery","red",[69,70])
+		n71 = Node("Battenkill Valley Creamery","red",[46,47,70,72])
+		n72 = Node("Battenkill Valley Creamery","red",[71,73])
+		n73 = Node("Battenkill Valley Creamery","red",[47,72,74])
+		n74 = Node("Battenkill Valley Creamery","red",[73,75])
+		n75 = Node("Battenkill Valley Creamery","red",[74,76])
+		n76 = Node("Battenkill Valley Creamery","red",[75,77])
+		n77 = Node("Battenkill Valley Creamery","red",[48,76])
+		n78 = Node("Battenkill Valley Creamery","red",[55,79])
+		n79 = Node("Battenkill Valley Creamery","red",[56,78])
+		n80 = Node("Battenkill Valley Creamery","red",[81,82])
+		n81 = Node("Battenkill Valley Creamery","red",[58,59,80])
+		n82 = Node("Battenkill Valley Creamery","red",[59,80])
+		n83 = Node("Battenkill Valley Creamery","red",[60])
+		n84 = Node("Battenkill Valley Creamery","red",[64])
+		n85 = Node("Battenkill Valley Creamery","red",[66])
+		n86 = Node("Battenkill Valley Creamery","red",[68])
+	}
 
 
 

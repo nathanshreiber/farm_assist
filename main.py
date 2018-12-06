@@ -8,7 +8,20 @@ class node:
 		self.color = color
 		self.neighbors = neighbors
 
+class color:
+	def __init__(self,color,k,number_left,collision):
+		self.color = color
+		self.k = k
+		self.number_left = number_left
+		self.collision = collision
 
+
+
+def assign_color(nodes_to_check,node,colors,collision):  #(node, colors dictionary)
+	if 
+	
+	color = most_left(colors)
+	n = colors
 
 
 if __name__ == '__main__':
@@ -257,3 +270,7 @@ if __name__ == '__main__':
 	n = (n[0],"red",n[2])
 	final_graph.append(n)
 	print(n[0],n[1],n[2]) 
+
+
+
+#run breadth frist algo to color nodes

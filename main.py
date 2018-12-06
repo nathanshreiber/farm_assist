@@ -17,11 +17,24 @@ class color:
 
 
 #(list of nodes,index of node, colors objects)
-def assign_color(nodes_to_check,node,colors):  
-	nodes_to_check.append(nodes_to_check[node])	
-	colors = most_left(colors)
+def assign_color(nodes_to_check,index,colors):
 	
+	node = nodex_to_check[index] 		#find node
+	nodes_to_check.append(node[2])		#add node's children to nodes_to_check
+	list_of_colors = most_left(colors)	#create list of colors in decreasing order of preseidence
+	
+	if (node.color )
+	for color in list_of_colors:
+		temp = colors.get(color)
+		k = temp.k
 
+
+def most_left(colorsList):
+	return sorted(colorsList,most_left_compare)
+
+
+def most_left_compare(color1):
+	return color1.number_left, color1.k
 
 if __name__ == '__main__':
 	
@@ -143,15 +156,18 @@ if __name__ == '__main__':
 #colors_1 	COLOR : (K,N)
 	colors_1 = [
 		#color	=("COLOR",K,# of nodes left,collision)
-		"CYAN" 	= ("CYAN",0,4,NULL),
-		"GREEN" = ("GREEN",2,13,NULL),
-		"YELLOW"= ("YELLOW",7,5,NULL),
-		"RED" 	= ("RED",5,7,NULL),
-		"BROWN"	= ("BROWN",3,9,NULL),
-		"ORANGE"= ("ORANGE",21,2,NULL),
-		"BLUE" 	= ("BLUE",21,2,NULL),
-		"PINK" 	= ("PINK",0,1,NULL),
-		"PURPLE"= ("PURPLE",43,1,NULL)
+
+
+		CYAN=("CYAN",0,4,NULL),
+		GREEN=("GREEN",2,13,NULL),
+		YELLOW=("YELLOW",7,5,NULL),
+		RED=("RED",5,7,NULL),
+		BROWN=("BROWN",3,9,NULL),
+		ORANGE=("ORANGE",21,2,NULL),
+		BLUE=("BLUE",21,2,NULL),
+		PINK=("PINK",0,1,NULL),
+		PURPLE=("PURPLE",43,1,NULL)
+
 	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
@@ -170,7 +186,6 @@ if __name__ == '__main__':
 
 #list of first floor nodes
 #nodes_1 = [n1,n2...]
-
 	nodes_1 = [
 		node_1,
 		node_2,
@@ -263,13 +278,14 @@ if __name__ == '__main__':
 	]
 
 #initialize list of completed nodes
-	final_graph = []
+	final_graph = 84
 #insert already first floor determined vendors
-	n = nodes_1.pop(nodes_1.index(node_38))
+	n = nodes_1.index(node_38)
 	n = (n[0],"red",n[2])
-	final_graph.append(n)
+	final_graph -= 1
 	print(n[0],n[1],n[2]) 
 
 
-
+#TEST most_left
+print(most_left(colors_1))
 #run breadth frist algo to color nodes

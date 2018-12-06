@@ -18,8 +18,7 @@ class color:
 
 
 def assign_color(nodes_to_check,node,colors,collision):  #(node, colors dictionary)
-	if 
-	
+		
 	color = most_left(colors)
 	n = colors
 
@@ -142,32 +141,32 @@ if __name__ == '__main__':
 
 #dictionary of first floor colors
 #colors_1 	COLOR : (K,N)
-	colors_1 = {
-		#color	:(K,# of nodes left to put in)
-		"CYAN"	:(0,4),
-		"GREEN"	:(2,13),
-		"YELLOW":(7,5),
-		"RED"	:(5,7),
-		"BROWN"	:(3,9),
-		"ORANGE":(21,2),
-		"BLUE"	:(21,2),
-		"PINK"	:(0,1),
-		"PURPLE":(43,1)
-	}
+	colors_1 = [
+		#color	=("COLOR",K,# of nodes left,collision)
+		CYAN 	= ("CYAN",0,4,NULL),
+		GREEN 	= ("GREEN",2,13,NULL),
+		YELLOW 	= ("YELLOW",7,5,NULL),
+		RED 	= ("RED",5,7,NULL),
+		BROWN	= ("BROWN",3,9,NULL),
+		ORANGE 	= ("ORANGE",21,2,NULL),
+		BLUE 	= ("BLUE",21,2,NULL),
+		PINK 	= ("PINK",0,1,NULL),
+		PURPLE 	= ("PURPLE",43,1,NULL)
+	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
-	colors_2 = {
-		#color	:(K,# of nodes left to put in)
-		"CYAN"	:(0,1),
-		"GREEN"	:(0,0),
-		"YELLOW":(5,6),
-		"RED"	:(12,3),
-		"BROWN"	:(3,10),
-		"ORANGE":(0,0),
-		"BLUE"	:(3,9),
-		"PINK"	:(5,6),
-		"PURPLE":(7,5)
-	}
+	colors_2 = [
+		#color	=("COLOR",K,# of nodes left,collision)
+		CYAN 	= ("CYAN",0,1,NULL),
+		GREEN 	= ("GREEN",0,0,NULL),
+		YELLOW 	= ("YELLOW",5,6,NULL),
+		RED 	= ("RED",12,3,NULL),
+		BROWN	= ("BROWN",3,10,NULL),
+		ORANGE 	= ("ORANGE",0,0,NULL),
+		BLUE 	= ("BLUE",3,9,NULL),
+		PINK 	= ("PINK",5,6,NULL),
+		PURPLE 	= ("PURPLE",7,5,NULL)
+	]
 
 #list of first floor nodes
 #nodes_1 = [n1,n2...]

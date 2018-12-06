@@ -32,6 +32,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 			hops.append(hops[index]+1)  #add to list of hops
 
 	
+
 	if (node_n.color):					#accounts for alredy assigned nodes
 		c = colors.get(node_n.color)		
 		if c.collision == None:			#if no collision assign collision value
@@ -41,6 +42,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 
 
 	list_of_colors = most_left(colors)	#create list of colors in decreasing order of preseidence
+
 
 	for color in list_of_colors:
 		k = color.k
@@ -69,21 +71,27 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	return final_color
 
 def most_left(colorsList):
-	return sorted(colorsList,most_left_compare)
-
-def most_left(colorsList):
-	colorsList = sorted(colorsList,key=most_left_compare,reverse=True)
-	return colorsList
+	return sorted(colorsList,key=most_left_compare,reveserse=True)
 
 def most_left_compare(color1):
 	return color1.number_left, color1.k
 
-def most_left_compare(color1):
-	return color1.number_left, color1.k
+#pass a list of OBj colors (some of them)
+#return list sorted by how bad their collision was as a percentage
+# percentage = collsion / k 
+#larger the percentage, better priority -> 1 being the best 
+def most_collide(colorList):
+	for color in colorsList:
+		color.collision = color.collision / color.k
+	return sorted(colorsList,key=most_collide_compare,reveserse=True)
+
+def most_collide_compare(color1):
+	return color1.collision, color1.number_left
 
 if __name__ == '__main__':
 	
 #first floor node initialization
+
 	node_1 = node(node_1,None,[node_2])
 	node_2 = node(node_2,None,[node_1,node_3])
 	node_3 = node(node_3,None,[node_2,node_4])
@@ -170,6 +178,7 @@ if __name__ == '__main__':
 	node_82 = node(node_82,None,[node_59,node_80])
 	node_83 = node(node_83,None,[node_60])
 	node_84 = node(node_84,None,[node_64])
+
 #node_x = (slot,"color",[n1,n2...])
 
 #first floor categories
@@ -333,8 +342,23 @@ if __name__ == '__main__':
 
 
 #TEST most_left
+	(most_left(colors_1))
 
+#TEST most_collide
+	colorTest  = [	
+		#color	=("COLOR",K,# of nodes left,collision)
+		color("CYAN",0,4,4),
+		color("GREEN",2,13,10),
+		color("YELLOW",7,5,3),
+		color("RED",5,7,5),
+		color("BROWN",3,9,1),
+		color("ORANGE",21,2,6),
+		color("BLUE",21,2,9),
+		color("PINK",0,1,2),
+		color("PURPLE",43,1,8)
+	]
 
-(most_left(colors_1))
-
+	colorTest = most_collide(colorTest)
+	for color in colorTest:
+		print(color.color)
 #run breadth frist algo to color nodes

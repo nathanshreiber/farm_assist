@@ -16,15 +16,36 @@ class color:
 		self.collision = collision
 
 
+#(list of nodes,index of node, colors objects)
+def assign_color(nodes_to_check,hops,index,colors):
+	
+	hop = hops[index]					#find hop value
+	node = nodex_to_check[index] 		#find node
+	potential_nodes = append(node[2])	#potential children to add
 
-def assign_color(nodes_to_check,node,colors,collision):  #(node, colors dictionary)
-		
-	color = most_left(colors)
-	n = colors
+	for n in potential_nodes:
+		if n not in nodes_to_check:
+			nodes_to_check.apend(n)		#add to list of nodes to check
+			hops.append(hops[index]+1)  #add to list of hops
+
+	list_of_colors = most_left(colors)	#create list of colors in decreasing order of preseidence
+	
+	if (node.color):
+
+	for color in list_of_colors:
+		temp = colors.get(color)
+		k = temp.k
+
+
+def most_left(colorsList):
+	return sorted(colorsList,most_left_compare)
 
 def most_left(colorsList):
 	colorsList = sorted(colorsList,key=most_left_compare,reverse=True)
 	return colorsList
+
+def most_left_compare(color1):
+	return color1.number_left, color1.k
 
 def most_left_compare(color1):
 	return color1.number_left, color1.k
@@ -118,6 +139,7 @@ if __name__ == '__main__':
 	node_82 = (82,None,[59,80])
 	node_83 = (83,None,[60])
 	node_84 = (84,None,[64])
+
 #node_x = (slot,"color",[n1,n2...])
 
 #first floor categories
@@ -149,6 +171,7 @@ if __name__ == '__main__':
 #colors_1 	COLOR : (K,N)
 	colors_1 = [
 		#color	=("COLOR",K,# of nodes left,collision)
+
 		color("CYAN",0,4,None),
 		color("GREEN",2,13,None),
 		color("YELLOW",7,5,None),
@@ -158,11 +181,13 @@ if __name__ == '__main__':
 		color("BLUE",21,2,None),
 		color("PINK",0,1,None),
 		color("PURPLE",43,1,None)
+
 	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
 	colors_2 = [
 		#color	=("COLOR",K,# of nodes left,collision)
+
 		color("CYAN",0,1,None),
 		color("GREEN",0,0,None),
 		color("YELLOW",5,6,None),
@@ -172,11 +197,11 @@ if __name__ == '__main__':
 		color("BLUE",3,9,None),
 		color("PINK",5,6,None),
 		color("PURPLE",7,5,None)
+
 	]
 
 #list of first floor nodes
 #nodes_1 = [n1,n2...]
-
 	nodes_1 = [
 		node_1,
 		node_2,
@@ -269,14 +294,17 @@ if __name__ == '__main__':
 	]
 
 #initialize list of completed nodes
-	final_graph = []
+	final_graph = 84
 #insert already first floor determined vendors
-	n = nodes_1.pop(nodes_1.index(node_38))
+	n = nodes_1.index(node_38)
 	n = (n[0],"red",n[2])
-	final_graph.append(n)
+	final_graph -= 1
 	print(n[0],n[1],n[2]) 
 
 
 #TEST most_left
+
+
 (most_left(colors_1))
+
 #run breadth frist algo to color nodes

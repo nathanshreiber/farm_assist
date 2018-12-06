@@ -30,7 +30,7 @@ def assign_color(nodes_to_check,hops,index,colors):
 
 	list_of_colors = most_left(colors)	#create list of colors in decreasing order of preseidence
 	
-	if (node.color):
+	#if (node.color):
 
 	for color in list_of_colors:
 		temp = colors.get(color)
@@ -38,17 +38,22 @@ def assign_color(nodes_to_check,hops,index,colors):
 
 
 def most_left(colorsList):
-	return sorted(colorsList,most_left_compare)
-
-def most_left(colorsList):
-	colorsList = sorted(colorsList,key=most_left_compare,reverse=True)
-	return colorsList
+	return sorted(colorsList,key=most_left_compare,reveserse=True)
 
 def most_left_compare(color1):
 	return color1.number_left, color1.k
 
-def most_left_compare(color1):
-	return color1.number_left, color1.k
+#pass a list of OBj colors (some of them)
+#return list sorted by how bad their collision was as a percentage
+# percentage = collsion / k 
+#larger the percentage, better priority -> 1 being the best 
+def most_collide(colorList):
+	for color in colorsList:
+		color.collision = color.collision / color.k
+	return sorted(colorsList,key=most_collide_compare,reveserse=True)
+
+def most_collide_compare(color1):
+	return color1.collision, color1.number_left
 
 if __name__ == '__main__':
 	
@@ -303,8 +308,23 @@ if __name__ == '__main__':
 
 
 #TEST most_left
+	(most_left(colors_1))
 
+#TEST most_collide
+	colorTest  = [	
+		#color	=("COLOR",K,# of nodes left,collision)
+		color("CYAN",0,4,4),
+		color("GREEN",2,13,10),
+		color("YELLOW",7,5,3),
+		color("RED",5,7,5),
+		color("BROWN",3,9,1),
+		color("ORANGE",21,2,6),
+		color("BLUE",21,2,9),
+		color("PINK",0,1,2),
+		color("PURPLE",43,1,8)
+	]
 
-(most_left(colors_1))
-
+	colorTest = most_collide(colorTest)
+	for color in colorTest:
+		print(color.color)
 #run breadth frist algo to color nodes

@@ -32,6 +32,12 @@ def assign_color(nodes_to_check,index,colors):
 def most_left(colorsList):
 	return sorted(colorsList,most_left_compare)
 
+def most_left(colorsList):
+	colorsList = sorted(colorsList,key=most_left_compare,reverse=True)
+	return colorsList
+
+def most_left_compare(color1):
+	return color1.number_left, color1.k
 
 def most_left_compare(color1):
 	return color1.number_left, color1.k
@@ -157,31 +163,32 @@ if __name__ == '__main__':
 	colors_1 = [
 		#color	=("COLOR",K,# of nodes left,collision)
 
-
-		CYAN=("CYAN",0,4,NULL),
-		GREEN=("GREEN",2,13,NULL),
-		YELLOW=("YELLOW",7,5,NULL),
-		RED=("RED",5,7,NULL),
-		BROWN=("BROWN",3,9,NULL),
-		ORANGE=("ORANGE",21,2,NULL),
-		BLUE=("BLUE",21,2,NULL),
-		PINK=("PINK",0,1,NULL),
-		PURPLE=("PURPLE",43,1,NULL)
+		color("CYAN",0,4,None),
+		color("GREEN",2,13,None),
+		color("YELLOW",7,5,None),
+		color("RED",5,7,None),
+		color("BROWN",3,9,None),
+		color("ORANGE",21,2,None),
+		color("BLUE",21,2,None),
+		color("PINK",0,1,None),
+		color("PURPLE",43,1,None)
 
 	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
 	colors_2 = [
 		#color	=("COLOR",K,# of nodes left,collision)
-		"CYAN" 	= ("CYAN",0,1,NULL),
-		"GREEN" = ("GREEN",0,0,NULL),
-		"YELLOW"= ("YELLOW",5,6,NULL),
-		"RED" 	= ("RED",12,3,NULL),
-		"BROWN"	= ("BROWN",3,10,NULL),
-		"ORANGE"= ("ORANGE",0,0,NULL),
-		"BLUE" 	= ("BLUE",3,9,NULL),
-		"PINK" 	= ("PINK",5,6,NULL),
-		"PURPLE"= ("PURPLE",7,5,NULL)
+
+		color("CYAN",0,1,None),
+		color("GREEN",0,0,None),
+		color("YELLOW",5,6,None),
+		color("RED",12,3,None),
+		color("BROWN",3,10,None),
+		color("ORANGE",0,0,None),
+		color("BLUE",3,9,None),
+		color("PINK",5,6,None),
+		color("PURPLE",7,5,None)
+
 	]
 
 #list of first floor nodes
@@ -287,5 +294,8 @@ if __name__ == '__main__':
 
 
 #TEST most_left
-print(most_left(colors_1))
+
+
+(most_left(colors_1))
+
 #run breadth frist algo to color nodes

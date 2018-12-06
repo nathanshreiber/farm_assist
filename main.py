@@ -17,13 +17,21 @@ class color:
 
 
 #(list of nodes,index of node, colors objects)
-def assign_color(nodes_to_check,index,colors):
+def assign_color(nodes_to_check,hops,index,colors):
 	
+	hop = hops[index]					#find hop value
 	node = nodex_to_check[index] 		#find node
-	nodes_to_check.append(node[2])		#add node's children to nodes_to_check
+	potential_nodes = append(node[2])	#potential children to add
+
+	for n in potential_nodes:
+		if n not in nodes_to_check:
+			nodes_to_check.apend(n)		#add to list of nodes to check
+			hops.append(hops[index]+1)  #add to list of hops
+
 	list_of_colors = most_left(colors)	#create list of colors in decreasing order of preseidence
 	
-	if (node.color )
+	if (node.color):
+
 	for color in list_of_colors:
 		temp = colors.get(color)
 		k = temp.k

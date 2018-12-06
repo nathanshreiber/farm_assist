@@ -22,6 +22,12 @@ def assign_color(nodes_to_check,node,colors,collision):  #(node, colors dictiona
 	color = most_left(colors)
 	n = colors
 
+def most_left(colorsList):
+	return sorted(colorsList,most_left_compare)
+
+
+def most_left_compare(color1):
+	return color1.number_left, color1.k
 
 if __name__ == '__main__':
 	
@@ -143,15 +149,15 @@ if __name__ == '__main__':
 #colors_1 	COLOR : (K,N)
 	colors_1 = [
 		#color	=("COLOR",K,# of nodes left,collision)
-		CYAN 	= ("CYAN",0,4,NULL),
-		GREEN 	= ("GREEN",2,13,NULL),
-		YELLOW 	= ("YELLOW",7,5,NULL),
-		RED 	= ("RED",5,7,NULL),
-		BROWN	= ("BROWN",3,9,NULL),
-		ORANGE 	= ("ORANGE",21,2,NULL),
-		BLUE 	= ("BLUE",21,2,NULL),
-		PINK 	= ("PINK",0,1,NULL),
-		PURPLE 	= ("PURPLE",43,1,NULL)
+		CYAN=("CYAN",0,4,NULL),
+		GREEN=("GREEN",2,13,NULL),
+		YELLOW=("YELLOW",7,5,NULL),
+		RED=("RED",5,7,NULL),
+		BROWN=("BROWN",3,9,NULL),
+		ORANGE=("ORANGE",21,2,NULL),
+		BLUE=("BLUE",21,2,NULL),
+		PINK=("PINK",0,1,NULL),
+		PURPLE=("PURPLE",43,1,NULL)
 	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
@@ -271,5 +277,6 @@ if __name__ == '__main__':
 	print(n[0],n[1],n[2]) 
 
 
-
+#TEST most_left
+print(most_left(colors_1))
 #run breadth frist algo to color nodes

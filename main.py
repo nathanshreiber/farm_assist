@@ -26,6 +26,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	hop = hops[index]					#find hop value
 	node_n = nodes_to_check[index] 		#find node
 	potential_nodes = []
+	#print("BUGGY SHIT:", node_n.slot)
 	potential_nodes.extend(node_n.neighbors)	#potential neighbors to add
 
 	
@@ -34,32 +35,38 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 			nodes_to_check.append(n)		#add to list of nodes to check
 			hops.append(hops[index]+1)  #add to list of hops
 	
-	for x in nodes_to_check:
-		print("Nodes to Check: "+str(x.slot))
+	#for x in nodes_to_check:
+		#print("Nodes to Check: "+str(x.slot))
 	
 
-	if (node_n.color):					#accounts for alredy assigned nodes
-		c = colors.get(node_n.color)		
+	if (node_n.color != None):					#accounts for alredy assigned nodes
+		c = colors[node_n.color]		
 		if c.collision == None:			#if no collision assign collision value
 			c.collision = hop
-		assign_color(nodes_tocheck,hops,index+1,colors,final_color)
+		final_color = assign_color(nodes_tocheck,hops,index+1,colors,final_color)
 		return final_color
 
-
-	list_of_colors = most_left(colors)	#create list of colors in decreasing order of precedence
+	list_of_colors = []
+	for i in colors:
+		list_of_colors.append(colors[i])
+	list_of_colors = most_left(list_of_colors)	#create list of colors in decreasing order of precedence
 
 
 	for color in list_of_colors:
 		k = color.k
 		
-		if not color.collision or color.collision > k: 
-			
+		if color.collision == None or color.collision > k: 
+			print("HOP "+str(hop)+" K "+str(k))
 			if hop <= k: 				#we havnt traveled far enough
-				assign_color(nodes_to_check,hops,index+1,colors,final_color)
 
+				
+				final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color)
+				return final_color
+			
 			if hop > k and color.number_left > 0:	#found color to assign
-				for c in colors:					#collisions reset to null
+				for c in list_of_colors:					#collisions reset to null
 					c.collision = None
+				#print(color.color)
 				return color.color
 
 	#if we reach this point, every color has a colision or has 0 left to assign
@@ -68,6 +75,8 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	for color in list_of_colors:				#add colors with collisions to list
 		if color.number_left > 0:				
 			collision_colors.append(color)
+		print()
+		print(color.color+str(color.k))
 
 	if len(collision_colors) > 0:				#return least bad collision
 		collision_colors = most_collide(collision_colors)
@@ -91,8 +100,8 @@ def most_left_compare(color1):
 #larger the percentage, better priority -> 1 being the best 
 def most_collide(colorList):
 	for color in colorList:
-		color.collision = color.collision / color.k
-	return sorted(colorList,key=most_collide_compare,reveserse=True)
+		color.collision = color.collision - color.k
+	return sorted(colorList,key=most_collide_compare,)
 
 def most_collide_compare(color1):
 	return color1.collision, color1.number_left
@@ -472,6 +481,7 @@ if __name__ == '__main__':
 	test_6.neighbors = [test_5,test_7]
 	test_7.neighbors = [test_6,test_8]
 	test_8.neighbors = [test_7,test_9]
+	test_9.neighbors = [test_8,test_10]
 	test_10.neighbors = [test_1,test_9]
 #Test Colors
 	color_test = {
@@ -503,8 +513,11 @@ if __name__ == '__main__':
 	print(order2)
 
 
+	order3 = random.sample(range(0,10),10)
+	print(order3)
 
-
-	final_graph = len(order1)
-	# for i in order1:
-	# 	print(str(floor_1[i].slot))
+	final_graph = len(order3)
+	for i in order3:
+		colour = assign_color([test_list[i]],[0],0,color_test,None)
+		color_test[colour].number_left = color_test[colour].number_left -1
+		print("Slot: "+str(floor_1[i].slot)+" Color: "+colour)

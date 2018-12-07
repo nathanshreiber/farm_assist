@@ -19,18 +19,23 @@ class color:
 #(list of nodes,index of node, colors objects)
 def assign_color(nodes_to_check,hops,index,colors,final_color):
 	
+	print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
 	if final_color != None:				#base case
 		return final_color
 
 	hop = hops[index]					#find hop value
 	node_n = nodes_to_check[index] 		#find node
-	potential_nodes = append(node_n[2])	#potential children to add
+	potential_nodes = []
+	potential_nodes.extend(node_n.neighbors)	#potential neighbors to add
 
+	
 	for n in potential_nodes:
 		if n not in nodes_to_check:
-			nodes_to_check.apend(n)		#add to list of nodes to check
+			nodes_to_check.append(n)		#add to list of nodes to check
 			hops.append(hops[index]+1)  #add to list of hops
-
+	
+	for x in nodes_to_check:
+		print("Nodes to Check: "+str(x.slot))
 	
 
 	if (node_n.color):					#accounts for alredy assigned nodes
@@ -53,6 +58,8 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 				assign_color(nodes_to_check,hops,index+1,colors,final_color)
 
 			if hop > k and color.number_left > 0:	#found color to assign
+				for c in colors:					#collisions reset to null
+					c.collision = None
 				return color.color
 
 	#if we reach this point, every color has a colision or has 0 left to assign
@@ -64,6 +71,8 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 
 	if len(collision_colors) > 0:				#return least bad collision
 		collision_colors = most_collide(collision_colors)
+		for c in colors:					#collisions reset to null
+			c.collision = None
 		return collision_colors[0].color
 
 	#corner case we havnt thought of
@@ -71,7 +80,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	return final_color
 
 def most_left(colorsList):
-	return sorted(colorsList,key=most_left_compare,reveserse=True)
+	return sorted(colorsList,key=most_left_compare,reverse=True)
 
 def most_left_compare(color1):
 	return color1.number_left, color1.k
@@ -81,9 +90,9 @@ def most_left_compare(color1):
 # percentage = collsion / k 
 #larger the percentage, better priority -> 1 being the best 
 def most_collide(colorList):
-	for color in colorsList:
+	for color in colorList:
 		color.collision = color.collision / color.k
-	return sorted(colorsList,key=most_collide_compare,reveserse=True)
+	return sorted(colorList,key=most_collide_compare,reveserse=True)
 
 def most_collide_compare(color1):
 	return color1.collision, color1.number_left
@@ -183,50 +192,50 @@ if __name__ == '__main__':
 		node_44
 	]
 
-	node_1.children = [node_2]
-	node_2.children = [node_1,node_3]
-	node_3.children = [node_2,node_4]
-	node_4.children = [node_3,node_5,node_35]
-	node_5.children = [node_4,node_35]
-	node_6.children = [node_5,node_7,node_36]
-	node_7.children = [node_6,node_8,node_17]
-	node_8.children = [node_7,node_9,node_16]
-	node_9.children = [node_8,node_15,node_16]
-	node_10.children = [node_9,node_11,node_14]
-	node_11.children = [node_10,node_12,node_14]
-	node_12.children = [node_11,node_13,node_14]
-	node_13.children = [node_12]
-	node_14.children = [node_10,node_11,node_12,node_15]
-	node_15.children = [node_9,node_14,node_16]
-	node_16.children = [node_8,node_15,node_17]
-	node_17.children = [node_7,node_16,node_18]
-	node_18.children = [node_17,node_19]
-	node_19.children = [node_18,node_20]
-	node_20.children = [node_19,node_21]
-	node_21.children = [node_20,node_22,node_38]
-	node_22.children = [node_21,node_23,node_39]
-	node_23.children = [node_22,node_24,node_40]
-	node_24.children = [node_23,node_25,node_41]
-	node_25.children = [node_24,node_26]
-	node_26.children = [node_25,node_26,node_41]
-	node_27.children = [node_26,node_28]
-	node_28.children = [node_27,node_28,node_42]
-	node_29.children = [node_28,node_30,node_43,node_44]
-	node_30.children = [node_28,node_31]
-	node_31.children = [node_30,node_32]
-	node_32.children = [node_31,node_33]
-	node_33.children = [node_32,node_34]
-	node_34.children = [node_33,node_35]
-	node_35.children = [node_4,node_5,node_34,node_36]
-	node_36.children = [node_6,node_35,node_37]
-	node_37.children = [node_36,node_38]
-	node_38.children = [node_21,node_37,node_39]
-	node_39.children = [node_22,node_38,node_40]
-	node_40.children = [node_23,node_39,node_41]
-	node_41.children = [node_24,node_26,node_40,node_42]
-	node_42.children = [node_28,node_41,node_43]
-	node_43.children = [node_28,node_42,node_44]
-	node_44.children = [node_28,node_43]
+	node_1.neighbors = [node_2]
+	node_2.neighbors = [node_1,node_3]
+	node_3.neighbors = [node_2,node_4]
+	node_4.neighbors = [node_3,node_5,node_35]
+	node_5.neighbors = [node_4,node_35]
+	node_6.neighbors = [node_5,node_7,node_36]
+	node_7.neighbors = [node_6,node_8,node_17]
+	node_8.neighbors = [node_7,node_9,node_16]
+	node_9.neighbors = [node_8,node_15,node_16]
+	node_10.neighbors = [node_9,node_11,node_14]
+	node_11.neighbors = [node_10,node_12,node_14]
+	node_12.neighbors = [node_11,node_13,node_14]
+	node_13.neighbors = [node_12]
+	node_14.neighbors = [node_10,node_11,node_12,node_15]
+	node_15.neighbors = [node_9,node_14,node_16]
+	node_16.neighbors = [node_8,node_15,node_17]
+	node_17.neighbors = [node_7,node_16,node_18]
+	node_18.neighbors = [node_17,node_19]
+	node_19.neighbors = [node_18,node_20]
+	node_20.neighbors = [node_19,node_21]
+	node_21.neighbors = [node_20,node_22,node_38]
+	node_22.neighbors = [node_21,node_23,node_39]
+	node_23.neighbors = [node_22,node_24,node_40]
+	node_24.neighbors = [node_23,node_25,node_41]
+	node_25.neighbors = [node_24,node_26]
+	node_26.neighbors = [node_25,node_26,node_41]
+	node_27.neighbors = [node_26,node_28]
+	node_28.neighbors = [node_27,node_28,node_42]
+	node_29.neighbors = [node_28,node_30,node_43,node_44]
+	node_30.neighbors = [node_28,node_31]
+	node_31.neighbors = [node_30,node_32]
+	node_32.neighbors = [node_31,node_33]
+	node_33.neighbors = [node_32,node_34]
+	node_34.neighbors = [node_33,node_35]
+	node_35.neighbors = [node_4,node_5,node_34,node_36]
+	node_36.neighbors = [node_6,node_35,node_37]
+	node_37.neighbors = [node_36,node_38]
+	node_38.neighbors = [node_21,node_37,node_39]
+	node_39.neighbors = [node_22,node_38,node_40]
+	node_40.neighbors = [node_23,node_39,node_41]
+	node_41.neighbors = [node_24,node_26,node_40,node_42]
+	node_42.neighbors = [node_28,node_41,node_43]
+	node_43.neighbors = [node_28,node_42,node_44]
+	node_44.neighbors = [node_28,node_43]
 #node_x = (slot,"color",[n1,n2...])
 #second floor node initialization
 	node_45 = node(45,None,None)
@@ -270,46 +279,46 @@ if __name__ == '__main__':
 	node_83 = node(83,None,None)
 	node_84 = node(84,None,None)
 
-	node_45.children = [node_46]
-	node_46.children = [node_45,node_71]
-	node_47.children = [node_48,node_71,node_73]
-	node_48.children = [node_47,node_49,node_77]
-	node_49.children = [node_48,node_50]
-	node_50.children = [node_49,node_51]
-	node_51.children = [node_50,node_52]
-	node_52.children = [node_51,node_53]
-	node_53.children = [node_52,node_54]
-	node_54.children = [node_53,node_55]
-	node_55.children = [node_52,node_56,node_78]
-	node_56.children = [node_55,node_57,node_79]
-	node_57.children = [node_56,node_58]
-	node_58.children = [node_57,node_81]
-	node_59.children = [node_60,node_81,node_82]
-	node_60.children = [node_59,node_61,node_83]
-	node_61.children = [node_60,node_62]
-	node_62.children = [node_61,node_63]
-	node_63.children = [node_62,node_64]
-	node_64.children = [node_63,node_65,node_84]
-	node_65.children = [node_64,node_66]
-	node_66.children = [node_65,node_67]
-	node_67.children = [node_66,node_68]
-	node_68.children = [node_67,node_69]
-	node_69.children = [node_68,node_70]
-	node_70.children = [node_69,node_70]
-	node_71.children = [node_46,node_47,node_70,node_72]
-	node_72.children = [node_71,node_73]
-	node_73.children = [node_47,node_72,node_74]
-	node_74.children = [node_73,node_75]
-	node_75.children = [node_74,node_76]
-	node_76.children = [node_75,node_77]
-	node_77.children = [node_48,node_76]
-	node_78.children = [node_55,node_79]
-	node_79.children = [node_56,node_78]
-	node_80.children = [node_81,node_82]
-	node_81.children = [node_58,node_59,node_80]
-	node_82.children = [node_59,node_80]
-	node_83.children = [node_60]
-	node_84.children = [node_64]
+	node_45.neighbors = [node_46]
+	node_46.neighbors = [node_45,node_71]
+	node_47.neighbors = [node_48,node_71,node_73]
+	node_48.neighbors = [node_47,node_49,node_77]
+	node_49.neighbors = [node_48,node_50]
+	node_50.neighbors = [node_49,node_51]
+	node_51.neighbors = [node_50,node_52]
+	node_52.neighbors = [node_51,node_53]
+	node_53.neighbors = [node_52,node_54]
+	node_54.neighbors = [node_53,node_55]
+	node_55.neighbors = [node_52,node_56,node_78]
+	node_56.neighbors = [node_55,node_57,node_79]
+	node_57.neighbors = [node_56,node_58]
+	node_58.neighbors = [node_57,node_81]
+	node_59.neighbors = [node_60,node_81,node_82]
+	node_60.neighbors = [node_59,node_61,node_83]
+	node_61.neighbors = [node_60,node_62]
+	node_62.neighbors = [node_61,node_63]
+	node_63.neighbors = [node_62,node_64]
+	node_64.neighbors = [node_63,node_65,node_84]
+	node_65.neighbors = [node_64,node_66]
+	node_66.neighbors = [node_65,node_67]
+	node_67.neighbors = [node_66,node_68]
+	node_68.neighbors = [node_67,node_69]
+	node_69.neighbors = [node_68,node_70]
+	node_70.neighbors = [node_69,node_70]
+	node_71.neighbors = [node_46,node_47,node_70,node_72]
+	node_72.neighbors = [node_71,node_73]
+	node_73.neighbors = [node_47,node_72,node_74]
+	node_74.neighbors = [node_73,node_75]
+	node_75.neighbors = [node_74,node_76]
+	node_76.neighbors = [node_75,node_77]
+	node_77.neighbors = [node_48,node_76]
+	node_78.neighbors = [node_55,node_79]
+	node_79.neighbors = [node_56,node_78]
+	node_80.neighbors = [node_81,node_82]
+	node_81.neighbors = [node_58,node_59,node_80]
+	node_82.neighbors = [node_59,node_80]
+	node_83.neighbors = [node_60]
+	node_84.neighbors = [node_64]
 
 #node_x = (slot,"color",[n1,n2...])
 
@@ -356,20 +365,20 @@ if __name__ == '__main__':
 	]
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
-	colors_2 = [
+	colors_2 = {
 		#color	=("COLOR",K,# of nodes left,collision)
 
-		color("CYAN",0,1,None),
-		color("GREEN",0,0,None),
-		color("YELLOW",5,6,None),
-		color("RED",12,3,None),
-		color("BROWN",3,10,None),
-		color("ORANGE",0,0,None),
-		color("BLUE",3,9,None),
-		color("PINK",5,6,None),
-		color("PURPLE",7,5,None)
+		"CYAN" : color("CYAN",0,1,None),
+		"GREEN" : ("GREEN",0,0,None),
+		"YELLOW" : color("YELLOW",5,6,None),
+		"RED" : color("RED",12,3,None),
+		"BROWN" : color("BROWN",3,10,None),
+		"ORANGE" : color("ORANGE",0,0,None),
+		"BLUE" : color("BLUE",3,9,None),
+		"PINK" : color("PINK",5,6,None),
+		"PURPLE" : color("PURPLE",7,5,None)
 
-	]
+	}
 
 
 
@@ -408,6 +417,8 @@ order2 = random.sample(range(0,40),40)
 print(order1)
 print(order2)
 
-final_graph = len(order1)
-for i in order1:
-	print(floor_1[i].children)
+final_graph = 0;
+for slot in order1:
+	colour = assign_color([floor_1[slot]],[0],0,colors_1,None)
+	floor_1[slot].color = colour
+	print(floor_1[slot].slot," ",floor_1[slot].color )

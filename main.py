@@ -311,6 +311,48 @@ if __name__ == '__main__':
 	node_83.children = [node_60]
 	node_84.children = [node_64]
 
+	floor_2 = [
+		node_45,
+		node_46,
+		node_47,
+		node_48,
+		node_49,
+		node_50,
+		node_51,
+		node_52,
+		node_53,
+		node_54,
+		node_55,
+		node_56,
+		node_57,
+		node_58,
+		node_59,
+		node_60,
+		node_61,
+		node_62,
+		node_63,
+		node_64,
+		node_65,
+		node_66,
+		node_67,
+		node_68,
+		node_69,
+		node_70,
+		node_71,
+		node_72,
+		node_73,
+		node_74,
+		node_75,
+		node_76,
+		node_77,
+		node_78,
+		node_79,
+		node_80,
+		node_81,
+		node_82,
+		node_83,
+		node_84]
+
 #node_x = (slot,"color",[n1,n2...])
 
 #first floor categories
@@ -399,15 +441,49 @@ if __name__ == '__main__':
 # 		color("PURPLE",43,1,8)
 # 	]
 
+
+
+#Test nodes
+	test_1 = node(1,None,None)
+	test_2 = node(2,None,None)
+	test_3 = node(3,None,None)
+	test_4 = node(4,None,None)
+	test_5 = node(5,None,None)
+	test_6 = node(6,None,None)
+	test_7 = node(7,None,None)
+	test_8 = node(8,None,None)
+	test_9 = node(9,None,None)
+	test_10 = node(10,None,None)
+#Test Neighbors
+	test_1.neighbors = [test_2,test_10]
+	test_2.neighbors = [test_1,test_3]
+	test_3.neighbors = [test_2,test_4,test_5]
+	test_4.neighbors = [test_3,test_5]
+	test_5.neighbors = [test_3,test_4,test_6]
+	test_6.neighbors = [test_5,test_7]
+	test_7.neighbors = [test_6,test_8]
+	test_8.neighbors = [test_7,test_9]
+	test_10.neighbors = [test_1,test_9]
+#Test Colors
+	color_test = {
+		"RED" : color("RED", 4,2,None)
+		"YELLOW" : color("YELLOW",1,5,None)
+		"BLUE" : color("BLUE",2,3,None)
+	}
+
+
 # 	colorTest = most_collide(colorTest)
 # 	for color in colorTest:
 # 		print(color.color)
 # #run breadth frist algo to color nodes
-order1 = random.sample(range(0,44),44)
-order2 = random.sample(range(0,40),40)
-print(order1)
-print(order2)
+	order1 = random.sample(range(0,44),44)
+	order2 = random.sample(range(0,40),40)
+	print(order1)
+	print(order2)
 
-final_graph = len(order1)
-for i in order1:
-	print(floor_1[i].children)
+
+
+
+	final_graph = len(order1)
+	for i in order1:
+		print(floor_1[i].children)

@@ -1,4 +1,4 @@
-
+import random
 
 class node:
 
@@ -63,7 +63,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 			collision_colors.append(color)
 
 	if len(collision_colors) > 0:				#return least bad collision
-		collision_colors = most_colide(collision_colors)
+		collision_colors = most_collide(collision_colors)
 		return collision_colors[0].color
 
 	#corner case we havnt thought of
@@ -91,94 +91,96 @@ def most_collide_compare(color1):
 if __name__ == '__main__':
 	
 #first floor node initialization
-
-	node_1 = node(node_1,None,[node_2])
-	node_2 = node(node_2,None,[node_1,node_3])
-	node_3 = node(node_3,None,[node_2,node_4])
-	node_4 = node(node_4,None,[node_3,node_5,node_35])
-	node_5 = node(node_5,None,[node_4,node_35])
-	node_6 = node(node_6,None,[node_5,node_7,node_36])
-	node_7 = node(node_7,None,[node_6,node_8,node_17])
-	node_8 = node(node_8,None,[node_7,node_9,node_16])
-	node_9 = node(node_9,None,[node_8,node_15,node_16])
-	node_10 = node(node_10,None,[node_9,node_11,node_14])
-	node_11 = node(node_11,None,[node_10,node_12,node_14])
-	node_12 = node(node_12,None,[node_11,node_13,node_14])
-	node_13 = node(node_13,None,[node_12])
-	node_14 = node(node_14,None,[node_10,node_11,node_12,node_15])
-	node_15 = node(node_15,None,[node_9,node_14,node_16])
-	node_16 = node(node_16,None,[node_8,node_15,node_17])
-	node_17 = node(node_17,None,[node_7,node_16,node_18])
-	node_18 = node(node_18,None,[node_17,node_19])
-	node_19 = node(node_19,None,[node_18,node_20])
-	node_20 = node(node_20,None,[node_19,node_21])
-	node_21 = node(node_21,None,[node_20,node_22,node_38])
-	node_22 = node(node_22,None,[node_21,node_23,node_39])
-	node_23 = node(node_23,None,[node_22,node_24,node_40])
-	node_24 = node(node_24,None,[node_23,node_25,node_41])
-	node_25 = node(node_25,None,[node_24,node_26])
-	node_26 = node(node_26,None,[node_25,node_26,node_41])
-	node_27 = node(node_27,None,[node_26,node_28])
-	node_28 = node(node_28,None,[node_27,node_28,node_42])
-	node_29 = node(node_29,None,[node_28,node_30,node_43,node_44])
-	node_30 = node(node_30,None,[node_28,node_31])
-	node_31 = node(node_31,None,[node_30,node_32])
-	node_32 = node(node_32,None,[node_31,node_33])
-	node_33 = node(node_33,None,[node_32,node_34])
-	node_34 = node(node_34,None,[node_33,node_35])
-	node_35 = node(node_35,None,[node_4,node_5,node_34,node_36])
-	node_36 = node(node_36,None,[node_6,node_35,node_37])
-	node_37 = node(node_37,None,[node_36,node_38])
-	node_38 = node(node_38,None,[node_21,node_37,node_39])
-	node_39 = node(node_39,None,[node_22,node_38,node_40])
-	node_40 = node(node_40,None,[node_23,node_39,node_41])
-	node_41 = node(node_41,None,[node_24,node_26,node_40,node_42])
-	node_42 = node(node_42,None,[node_28,node_41,node_43])
-	node_43 = node(node_43,None,[node_28,node_42,node_44])
-	node_44 = node(node_44,None,[node_28,node_43])
+	nodes_2 = [
+		node('node_1',None,['node_2']),
+		node('node_2',None,['node_1','node_3']),
+		node('node_3',None,['node_2','node_4']),
+		node('node_4',None,['node_3','node_5','node_35']),
+		node('node_5',None,['node_4','node_35']),
+		node('node_6',None,['node_5','node_7','node_36']),
+		node('node_7',None,['node_6','node_8','node_17']),
+		node('node_8',None,['node_7','node_9','node_16']),
+		node('node_9',None,['node_8','node_15','node_16']),
+		node('node_10',None,['node_9','node_11','node_14']),
+		node('node_11',None,['node_10','node_12','node_14']),
+		node('node_12',None,['node_11','node_13','node_14']),
+		node('node_13',None,['node_12']),
+		node('node_14',None,['node_10','node_11','node_12','node_15']),
+		node('node_15',None,['node_9','node_14','node_16']),
+		node('node_16',None,['node_8','node_15','node_17']),
+		node('node_17',None,['node_7','node_16','node_18']),
+		node('node_18',None,['node_17','node_19']),
+		node('node_19',None,['node_18','node_20']),
+		node('node_20',None,['node_19','node_21']),
+		node('node_21',None,['node_20','node_22','node_38']),
+		node('node_22',None,['node_21','node_23','node_39']),
+		node('node_23',None,['node_22','node_24','node_40']),
+		node('node_24',None,['node_23','node_25','node_41']),
+		node('node_25',None,['node_24','node_26']),
+		node('node_26',None,['node_25','node_26','node_41']),
+		node('node_27',None,['node_26','node_28']),
+		node('node_28',None,['node_27','node_28','node_42']),
+		node('node_29',None,['node_28','node_30','node_43','node_44']),
+		node('node_30',None,['node_28','node_31']),
+		node('node_31',None,['node_30','node_32']),
+		node('node_32',None,['node_31','node_33']),
+		node('node_33',None,['node_32','node_34']),
+		node('node_34',None,['node_33','node_35']),
+		node('node_35',None,['node_4','node_5','node_34','node_36']),
+		node('node_36',None,['node_6','node_35','node_37']),
+		node('node_37',None,['node_36','node_38']),
+		node('node_38',None,['node_21','node_37','node_39']),
+		node('node_39',None,['node_22','node_38','node_40']),
+		node('node_40',None,['node_23','node_39','node_41']),
+		node('node_41',None,['node_24','node_26','node_40','node_42']),
+		node('node_42',None,['node_28','node_41','node_43']),
+		node('node_43',None,['node_28','node_42','node_44']),
+		node('node_44',None,['node_28','node_43'])
+	]
 #node_x = (slot,"color",[n1,n2...])
 #second floor node initialization
-	node_45 = node(node_45,None,[node_46])
-	node_46 = node(node_46,None,[node_45,node_71])
-	node_47 = node(node_47,None,[node_48,node_71,node_73])
-	node_48 = node(node_48,None,[node_47,node_49,node_77])
-	node_49 = node(node_49,None,[node_48,node_50])
-	node_50 = node(node_50,None,[node_49,node_51])
-	node_51 = node(node_51,None,[node_50,node_52])
-	node_52 = node(node_52,None,[node_51,node_53])
-	node_53 = node(node_53,None,[node_52,node_54])
-	node_54 = node(node_54,None,[node_53,node_55])
-	node_55 = node(node_55,None,[node_52,node_56,node_78])
-	node_56 = node(node_56,None,[node_55,node_57,node_79])
-	node_57 = node(node_57,None,[node_56,node_58])
-	node_58 = node(node_58,None,[node_57,node_81])
-	node_59 = node(node_59,None,[node_60,node_81,node_82])
-	node_60 = node(node_60,None,[node_59,node_61,node_83])
-	node_61 = node(node_61,None,[node_60,node_62])
-	node_62 = node(node_62,None,[node_61,node_63])
-	node_63 = node(node_63,None,[node_62,node_64])
-	node_64 = node(node_64,None,[node_63,node_65,node_84])
-	node_65 = node(node_65,None,[node_64,node_66])
-	node_66 = node(node_66,None,[node_65,node_67])
-	node_67 = node(node_67,None,[node_66,node_68])
-	node_68 = node(node_68,None,[node_67,node_69])
-	node_69 = node(node_69,None,[node_68,node_70])
-	node_70 = node(node_70,None,[node_69,node_70])
-	node_71 = node(node_71,None,[node_46,node_47,node_70,node_72])
-	node_72 = node(node_72,None,[node_71,node_73])
-	node_73 = node(node_73,None,[node_47,node_72,node_74])
-	node_74 = node(node_74,None,[node_73,node_75])
-	node_75 = node(node_75,None,[node_74,node_76])
-	node_76 = node(node_76,None,[node_75,node_77])
-	node_77 = node(node_77,None,[node_48,node_76])
-	node_78 = node(node_78,None,[node_55,node_79])
-	node_79 = node(node_79,None,[node_56,node_78])
-	node_80 = node(node_80,None,[node_81,node_82])
-	node_81 = node(node_81,None,[node_58,node_59,node_80])
-	node_82 = node(node_82,None,[node_59,node_80])
-	node_83 = node(node_83,None,[node_60])
-	node_84 = node(node_84,None,[node_64])
-
+	nodes_2 = [
+		node('node_45',None,['node_46']),
+		node('node_46',None,['node_45','node_71']),
+		node('node_47',None,['node_48','node_71','node_73']),
+		node('node_48',None,['node_47','node_49','node_77']),
+		node('node_49',None,['node_48','node_50']),
+		node('node_50',None,['node_49','node_51']),
+		node('node_51',None,['node_50','node_52']),
+		node('node_52',None,['node_51','node_53']),
+		node('node_53',None,['node_52','node_54']),
+		node('node_54',None,['node_53','node_55']),
+		node('node_55',None,['node_52','node_56','node_78']),
+		node('node_56',None,['node_55','node_57','node_79']),
+		node('node_57',None,['node_56','node_58']),
+		node('node_58',None,['node_57','node_81']),
+		node('node_59',None,['node_60','node_81','node_82']),
+		node('node_60',None,['node_59','node_61','node_83']),
+		node('node_61',None,['node_60','node_62']),
+		node('node_62',None,['node_61','node_63']),
+		node('node_63',None,['node_62','node_64']),
+		node('node_64',None,['node_63','node_65','node_84']),
+		node('node_65',None,['node_64','node_66']),
+		node('node_66',None,['node_65','node_67']),
+		node('node_67',None,['node_66','node_68']),
+		node('node_68',None,['node_67','node_69']),
+		node('node_69',None,['node_68','node_70']),
+		node('node_70',None,['node_69','node_70']),
+		node('node_71',None,['node_46','node_47','node_70','node_72']),
+		node('node_72',None,['node_71','node_73']),
+		node('node_73',None,['node_47','node_72','node_74']),
+		node('node_74',None,['node_73','node_75']),
+		node('node_75',None,['node_74','node_76']),
+		node('node_76',None,['node_75','node_77']),
+		node('node_77',None,['node_48','node_76']),
+		node('node_78',None,['node_55','node_79']),
+		node('node_79',None,['node_56','node_78']),
+		node('node_80',None,['node_81','node_82']),
+		node('node_81',None,['node_58','node_59','node_80']),
+		node('node_82',None,['node_59','node_80']),
+		node('node_83',None,['node_60']),
+		node('node_84',None,['node_64'])
+	]
 #node_x = (slot,"color",[n1,n2...])
 
 #first floor categories
@@ -239,126 +241,43 @@ if __name__ == '__main__':
 
 	]
 
-#list of first floor nodes
-#nodes_1 = [n1,n2...]
-	nodes_1 = [
-		node_1,
-		node_2,
-		node_3,
-		node_4,
-		node_5,
-		node_6,
-		node_7,
-		node_8,
-		node_9,
-		node_10,
-		node_11,
-		node_12,
-		node_13,
-		node_14,
-		node_15,
-		node_16,
-		node_17,
-		node_18,
-		node_19,
-		node_20,
-		node_21,
-		node_22,
-		node_23,
-		node_24,
-		node_25,
-		node_26,
-		node_27,
-		node_28,
-		node_29,
-		node_30,
-		node_31,
-		node_32,
-		node_33,
-		node_34,
-		node_35,
-		node_36,
-		node_37,
-		node_38,
-		node_39,
-		node_40,
-		node_41,
-		node_42,
-		node_43,
-		node_44
-	]
-#list of second floor nodes
-#nodes_2 = [n1,n2...]
-	nodes_2 = [
-		node_45,
-		node_46,
-		node_47,
-		node_48,
-		node_49,
-		node_50,
-		node_51,
-		node_52,
-		node_53,
-		node_54,
-		node_55,
-		node_56,
-		node_57,
-		node_58,
-		node_59,
-		node_60,
-		node_61,
-		node_62,
-		node_63,
-		node_64,
-		node_65,
-		node_66,
-		node_67,
-		node_68,
-		node_69,
-		node_70,
-		node_71,
-		node_72,
-		node_73,
-		node_74,
-		node_75,
-		node_76,
-		node_77,
-		node_78,
-		node_79,
-		node_80,
-		node_81,
-		node_82,
-		node_83,
-		node_84
-	]
+
 
 #initialize list of completed nodes
 	final_graph = 84
 #insert already first floor determined vendors
-	n = nodes_1.index(node_38)
-	n = (n[0],"red",n[2])
-	final_graph -= 1
-	print(n[0],n[1],n[2]) 
+	# n = nodes_1.pop(index(node_38))
+	# n = (n[0],"red",n[2])
+	# final_graph -= 1
+	# print(n[0],n[1],n[2]) 
 
 
-#TEST most_left
-	(most_left(colors_1))
+# #TEST most_left
+# 	(most_left(colors_1))
 
-#TEST most_collide
-	colorTest  = [	
-		#color	=("COLOR",K,# of nodes left,collision)
-		color("CYAN",0,4,4),
-		color("GREEN",2,13,10),
-		color("YELLOW",7,5,3),
-		color("RED",5,7,5),
-		color("BROWN",3,9,1),
-		color("ORANGE",21,2,6),
-		color("BLUE",21,2,9),
-		color("PINK",0,1,2),
-		color("PURPLE",43,1,8)
-	]
+# #TEST most_collide
+# 	colorTest  = [	
+# 		#color	=("COLOR",K,# of nodes left,collision)
+# 		color("CYAN",0,4,4),
+# 		color("GREEN",2,13,10),
+# 		color("YELLOW",7,5,3),
+# 		color("RED",5,7,5),
+# 		color("BROWN",3,9,1),
+# 		color("ORANGE",21,2,6),
+# 		color("BLUE",21,2,9),
+# 		color("PINK",0,1,2),
+# 		color("PURPLE",43,1,8)
+# 	]
 
-	colorTest = most_collide(colorTest)
-	for color in colorTest:
-		print(color.color)
-#run breadth frist algo to color nodes
+# 	colorTest = most_collide(colorTest)
+# 	for color in colorTest:
+# 		print(color.color)
+# #run breadth frist algo to color nodes
+order1 = random.sample(range(0,44),44)
+order2 = random.sample(range(0,40),40)
+print(order1)
+print(order2)
+
+final_graph = len(order1)
+while final_graph > 0:
+	color

@@ -1,4 +1,5 @@
 import random
+import pdb
 
 class node:
 
@@ -18,32 +19,32 @@ class color:
 
 #(list of nodes,index of node, colors objects)
 def assign_color(nodes_to_check,hops,index,colors,final_color):
-	
+	pdb.set_trace()
 	print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
-	if final_color != None:				#base case
+	if final_color != None:						#base case
 		return final_color
 
-	hop = hops[index]					#find hop value
-	node_n = nodes_to_check[index] 		#find node
+	hop = hops[index]							#find hop value
+	node_n = nodes_to_check[index] 				#find node
 	potential_nodes = []
-	#print("BUGGY SHIT:", node_n.slot)
-	potential_nodes.extend(node_n.neighbors)	#potential neighbors to add
-
+	potential_nodes.extend(node_n.neighbors)	#adds neighbors of current node t0
+												#potential nodes 
 	
-	for n in potential_nodes:
+	for n in potential_nodes:					
 		if n not in nodes_to_check:
-			nodes_to_check.append(n)		#add to list of nodes to check
-			hops.append(hops[index]+1)  #add to list of hops
+			nodes_to_check.append(n)			#add to list of nodes to check
+			hops.append(hops[index]+1) 			#add to list of hops
 	
 	#for x in nodes_to_check:
 		#print("Nodes to Check: "+str(x.slot))
 	
-
+	pdb.set_trace();
 	if (node_n.color != None):					#accounts for alredy assigned nodes
-		c = colors[node_n.color]		
+		c = colors[node_n.color]	 	
 		if c.collision == None:			#if no collision assign collision value
-			c.collision = hop
-		final_color = assign_color(nodes_tocheck,hops,index+1,colors,final_color)
+			c.collision = hop     	
+		pdb.set_trace();
+		final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Also goes out of index
 		return final_color
 
 	list_of_colors = []
@@ -51,19 +52,20 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 		list_of_colors.append(colors[i])
 	list_of_colors = most_left(list_of_colors)	#create list of colors in decreasing order of precedence
 
-
+	pdb.set_trace()
 	for color in list_of_colors:
 		k = color.k
-		
+		#not sure if color.collision ever gets properly changed 
 		if color.collision == None or color.collision > k: 
 			print("HOP "+str(hop)+" K "+str(k))
 			if hop <= k: 				#we havnt traveled far enough
 
-				
-				final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color)
+				#LOGIC FLAW: Are we ever assigning node_6 the color yellow??????? 
+				final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Problematic asf
 				return final_color
 			
 			if hop > k and color.number_left > 0:	#found color to assign
+				pdb.set_trace();
 				for c in list_of_colors:					#collisions reset to null
 					c.collision = None
 				#print(color.color)
@@ -71,7 +73,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 
 	#if we reach this point, every color has a colision or has 0 left to assign
 	collision_colors = []
-
+	pdb.set_trace();
 	for color in list_of_colors:				#add colors with collisions to list
 		if color.number_left > 0:				
 			collision_colors.append(color)
@@ -513,11 +515,14 @@ if __name__ == '__main__':
 	print(order2)
 
 
-	order3 = random.sample(range(0,10),10)
+	#order3 = random.sample(range(0,10),10)
+	order3 = [9,8,3,1,7,4,0,2,5,6]
 	print(order3)
 
 	final_graph = len(order3)
 	for i in order3:
 		colour = assign_color([test_list[i]],[0],0,color_test,None)
 		color_test[colour].number_left = color_test[colour].number_left -1
+		#BUG FIX? assigning the color to the node we just found the color to
+		test_list[i].color = colour 
 		print("Slot: "+str(floor_1[i].slot)+" Color: "+colour)

@@ -1,5 +1,5 @@
 import random
-import pdb
+#import pdb
 
 class node:
 
@@ -19,7 +19,7 @@ class color:
 
 #(list of nodes,index of node, colors objects)
 def assign_color(nodes_to_check,hops,index,colors,final_color):
-	pdb.set_trace()
+	#pdb.set_trace()
 	print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
 	if final_color != None:						#base case
 		return final_color
@@ -38,21 +38,26 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	#for x in nodes_to_check:
 		#print("Nodes to Check: "+str(x.slot))
 	
-	pdb.set_trace();
+	#pdb.set_trace();
 	if (node_n.color != None):					#accounts for alredy assigned nodes
 		c = colors[node_n.color]	 	
 		if c.collision == None:			#if no collision assign collision value
 			c.collision = hop     	
-		pdb.set_trace();
-		final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Also goes out of index
-		return final_color
+		#pdb.set_trace();
+		#ADDING INDEX CHECK               IDEA 1
+		if index + 1 < len(hops):
+			final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color) #Also goes out of index
+			return final_color
+		#else:  							IDEA 2
+			#final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color)
+		#return final_color
 
 	list_of_colors = []
 	for i in colors:
 		list_of_colors.append(colors[i])
 	list_of_colors = most_left(list_of_colors)	#create list of colors in decreasing order of precedence
 
-	pdb.set_trace()
+	#pdb.set_trace()
 	for color in list_of_colors:
 		k = color.k
 		#not sure if color.collision ever gets properly changed 
@@ -60,12 +65,16 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 			print("HOP "+str(hop)+" K "+str(k))
 			if hop <= k: 				#we havnt traveled far enough
 
-				#LOGIC FLAW: Are we ever assigning node_6 the color yellow??????? 
-				final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Problematic asf
-				return final_color
+				#ADDING INDEX CHECK    						IDEA 1
+				if index + 1 < len(hops):
+					final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Problematic asf
+					return final_color
+				#else:										IDEA 2
+					#final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color)
+				#return final_color
 			
 			if hop > k and color.number_left > 0:	#found color to assign
-				pdb.set_trace();
+				#pdb.set_trace();
 				for c in list_of_colors:					#collisions reset to null
 					c.collision = None
 				#print(color.color)
@@ -73,17 +82,18 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 
 	#if we reach this point, every color has a colision or has 0 left to assign
 	collision_colors = []
-	pdb.set_trace();
+	#pdb.set_trace();
 	for color in list_of_colors:				#add colors with collisions to list
 		if color.number_left > 0:				
-			collision_colors.append(color)
+			collision_colors.append(color) 		
 		print()
 		print(color.color+str(color.k))
-
+	#pdb.set_trace();
 	if len(collision_colors) > 0:				#return least bad collision
 		collision_colors = most_collide(collision_colors)
 		for c in colors:					#collisions reset to null
-			c.collision = None
+			#bug fix
+			colors[c].collision = None
 		return collision_colors[0].color
 
 	#corner case we havnt thought of
@@ -91,10 +101,11 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	return final_color
 
 def most_left(colorsList):
-	return sorted(colorsList,key=most_left_compare,reverse=True)
+	return sorted(colorsList,key=most_left_compare)
 
 def most_left_compare(color1):
-	return color1.number_left, color1.k
+	#CHANGED: Switched
+	return color1.k, color1.number_left
 
 #pass a list of OBj colors (some of them)
 #return list sorted by how bad their collision was as a percentage
@@ -102,11 +113,17 @@ def most_left_compare(color1):
 #larger the percentage, better priority -> 1 being the best 
 def most_collide(colorList):
 	for color in colorList:
-		color.collision = color.collision - color.k
-	return sorted(colorList,key=most_collide_compare,)
+		#Getting an error here 
+		#FIX
+		if color.collision is None:
+			color.collision = 0
+		else:
+			color.collision = color.collision - color.k
+	return sorted(colorList,key=most_collide_compare)
 
 def most_collide_compare(color1):
-	return color1.collision, color1.number_left
+	#color.numleft switched to color1.k
+	return color1.collision, color1.k
 
 if __name__ == '__main__':
 	

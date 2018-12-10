@@ -20,7 +20,7 @@ class color:
 #(list of nodes,index of node, colors objects)
 def assign_color(nodes_to_check,hops,index,colors,final_color):
 	#pdb.set_trace()
-	print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
+	#print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
 	if final_color != None:						#base case
 		return final_color
 
@@ -62,7 +62,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 		k = color.k
 		#not sure if color.collision ever gets properly changed 
 		if color.collision == None or color.collision > k: 
-			print("HOP "+str(hop)+" K "+str(k))
+			#print("HOP "+str(hop)+" K "+str(k))
 			if hop <= k: 				#we havnt traveled far enough
 
 				#ADDING INDEX CHECK    						IDEA 1
@@ -86,8 +86,8 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 	for color in list_of_colors:				#add colors with collisions to list
 		if color.number_left > 0:				
 			collision_colors.append(color) 		
-		print()
-		print(color.color+str(color.k))
+			
+		#print(color.color+str(color.k))
 	#pdb.set_trace();
 	if len(collision_colors) > 0:				#return least bad collision
 		collision_colors = most_collide(collision_colors)
@@ -262,8 +262,8 @@ if __name__ == '__main__':
 	node_40.neighbors = [node_23,node_39,node_41]
 	node_41.neighbors = [node_24,node_26,node_40,node_42]
 	node_42.neighbors = [node_28,node_41,node_43]
-	node_43.neighbors = [node_28,node_42,node_44]
-	node_44.neighbors = [node_28,node_43]
+	node_43.neighbors = [node_29,node_42,node_44]
+	node_44.neighbors = [node_29,node_43]
 #node_x = (slot,"color",[n1,n2...])
 #second floor node initialization
 	node_45 = node(45,None,None)
@@ -419,20 +419,20 @@ if __name__ == '__main__':
 
 #dictionary of first floor colors
 #colors_1 	COLOR : (K,N)
-	colors_1 = [
+	colors_1 = {
 		#color	=("COLOR",K,# of nodes left,collision)
 
-		color("CYAN",0,4,None),
-		color("GREEN",2,13,None),
-		color("YELLOW",7,5,None),
-		color("RED",5,7,None),
-		color("BROWN",3,9,None),
-		color("ORANGE",21,2,None),
-		color("BLUE",21,2,None),
-		color("PINK",0,1,None),
-		color("PURPLE",43,1,None)
+		"CYAN" : color("CYAN",0,4,None),
+		"GREEN" : color("GREEN",2,13,None),
+		"YELLOW" : color("YELLOW",7,5,None),
+		"RED" : color("RED",5,7,None),
+		"BROWN" : color("BROWN",3,9,None),
+		"ORANGE" : color("ORANGE",21,2,None),
+		"BLUE" : color("BLUE",21,2,None),
+		"PINK" : color("PINK",0,1,None),
+		"PURPLE" : color("PURPLE",43,1,None)
 
-	]
+	}
 #dictionary of second floor colors
 #colors_2 	COLOR : (K,N)
 	colors_2 = {
@@ -532,14 +532,26 @@ if __name__ == '__main__':
 	print(order2)
 
 
-	#order3 = random.sample(range(0,10),10)
-	order3 = [9,8,3,1,7,4,0,2,5,6]
+	order3 = random.sample(range(0,10),10)
+	
 	print(order3)
 
-	final_graph = len(order3)
-	for i in order3:
-		colour = assign_color([test_list[i]],[0],0,color_test,None)
-		color_test[colour].number_left = color_test[colour].number_left -1
+	final_graph = len(order1)
+	order1.remove(37)
+	order1.remove(36)
+	order1.remove(35)
+	order1.remove(10)
+	order1.remove(12)
+	premature1 = [37,36,35,10,12]
+	order1 = premature1 + order1
+	for i in order1:
+
+
+
+
+
+		colour = assign_color([floor_1[i]],[0],0,colors_1,None)
+		colors_1[colour].number_left = colors_1[colour].number_left -1
 		#BUG FIX? assigning the color to the node we just found the color to
-		test_list[i].color = colour 
+		floor_1[i].color = colour 
 		print("Slot: "+str(floor_1[i].slot)+" Color: "+colour)

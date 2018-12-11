@@ -18,7 +18,7 @@ class color:
 
 
 #(list of nodes,index of node, colors objects)
-def assign_color(nodes_to_check,hops,index,colors,final_color):
+def assign_color(nodes_to_check,hops,index,colors,final_color,collisionCount):
 	#pdb.set_trace()
 	#print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
 	if final_color != None:						#base case
@@ -39,14 +39,14 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 		#print("Nodes to Check: "+str(x.slot))
 	
 	#pdb.set_trace();
-	if (node_n.color != None):					#accounts for alredy assigned nodes
+	if (node_n.color != None):					#accounts for already assigned nodes
 		c = colors[node_n.color]	 	
 		if c.collision == None:			#if no collision assign collision value
 			c.collision = hop     	
 		#pdb.set_trace();
 		#ADDING INDEX CHECK               IDEA 1
 		if index + 1 < len(hops):
-			final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color) #Also goes out of index
+			final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color,collisionCount) #Also goes out of index
 			return final_color
 		#else:  							IDEA 2
 			#final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color)
@@ -67,7 +67,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 
 				#ADDING INDEX CHECK    						IDEA 1
 				if index + 1 < len(hops):
-					final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color) #Problematic asf
+					final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color,collisionCount) #Problematic asf
 					return final_color
 				#else:										IDEA 2
 					#final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color)
@@ -76,7 +76,9 @@ def assign_color(nodes_to_check,hops,index,colors,final_color):
 			if hop > k and color.number_left > 0:	#found color to assign
 				#pdb.set_trace();
 				for c in list_of_colors:					#collisions reset to null
-					c.collision = None
+					if c == color.color:
+						collisionCount += 1
+					#c.collision = None
 				#print(color.color)
 				return color.color
 
@@ -532,6 +534,20 @@ if __name__ == '__main__':
 	print(order2)
 
 
+	final_graph = 10
+	test_order = [9,8,3,1,7,4,0,2,5,6]
+	cQuant = 0
+	for i in test_order:
+		for j in color_test:
+			color_test[j].collision = None
+		colour = assign_color([test_list[i]],[0],0,color_test,None,cQuant)
+		color_test[colour].number_left = color_test[colour].number_left -1
+		test_list[i].color = colour
+		print("Slot: "+str(test_list[i].slot)+" Color: "+colour+" Collisions: "+str(cQuant))
+
+
+
+
 	order3 = random.sample(range(0,10),10)
 	
 	print(order3)
@@ -544,13 +560,9 @@ if __name__ == '__main__':
 	order1.remove(12)
 	premature1 = [37,36,35,10,12]
 	order1 = premature1 + order1
+	cQuant = 0
 	for i in order1:
-
-
-
-
-
-		colour = assign_color([floor_1[i]],[0],0,colors_1,None)
+		colour = assign_color([floor_1[i]],[0],0,colors_1,None,cQuant)
 		colors_1[colour].number_left = colors_1[colour].number_left -1
 		#BUG FIX? assigning the color to the node we just found the color to
 		floor_1[i].color = colour 

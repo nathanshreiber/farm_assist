@@ -55,6 +55,7 @@ def assign_color(nodes_to_check,hops,index,colors,final_color,collisionCount):
 	list_of_colors = []
 	for i in colors:
 		list_of_colors.append(colors[i])
+	#pdb.set_trace()	
 	list_of_colors = most_left(list_of_colors)	#create list of colors in decreasing order of precedence
 
 	#pdb.set_trace()
@@ -441,7 +442,7 @@ if __name__ == '__main__':
 		#color	=("COLOR",K,# of nodes left,collision)
 
 		"CYAN" : color("CYAN",0,1,None),
-		"GREEN" : ("GREEN",0,0,None),
+		"GREEN" : color("GREEN",0,0,None),
 		"YELLOW" : color("YELLOW",5,6,None),
 		"RED" : color("RED",12,3,None),
 		"BROWN" : color("BROWN",3,10,None),
@@ -530,40 +531,47 @@ if __name__ == '__main__':
 # #run breadth frist algo to color nodes
 	order1 = random.sample(range(0,44),44)
 	order2 = random.sample(range(0,40),40)
-	print(order1)
+	#print(order1)
 	print(order2)
 
 
-	final_graph = 10
-	test_order = [9,8,3,1,7,4,0,2,5,6]
-	cQuant = 0
-	for i in test_order:
-		for j in color_test:
-			color_test[j].collision = None
-		colour = assign_color([test_list[i]],[0],0,color_test,None,cQuant)
-		color_test[colour].number_left = color_test[colour].number_left -1
-		test_list[i].color = colour
-		print("Slot: "+str(test_list[i].slot)+" Color: "+colour+" Collisions: "+str(cQuant))
+	# final_graph = 10
+	# test_order = [9,8,3,1,7,4,0,2,5,6]
+	# cQuant = 0
+	# for i in test_order:
+	# 	for j in color_test:
+	# 		color_test[j].collision = None
+	# 	colour = assign_color([test_list[i]],[0],0,color_test,None,cQuant)
+	# 	color_test[colour].number_left = color_test[colour].number_left -1
+	# 	test_list[i].color = colour
+	# 	print("Slot: "+str(test_list[i].slot)+" Color: "+colour+" Collisions: "+str(cQuant))
 
 
 
 
-	order3 = random.sample(range(0,10),10)
+	# order3 = random.sample(range(0,10),10)
 	
-	print(order3)
+	# print(order3)
 
-	final_graph = len(order1)
-	order1.remove(37)
-	order1.remove(36)
-	order1.remove(35)
-	order1.remove(10)
-	order1.remove(12)
-	premature1 = [37,36,35,10,12]
-	order1 = premature1 + order1
+	final_graph = len(order2)
+	# order1.remove(37)
+	# order1.remove(36)
+	# order1.remove(35)
+	# order1.remove(10)
+	# order1.remove(12)
+	# premature1 = [37,36,35,10,12]
+	# order1 = premature1 + order1
+	# cQuant = 0
+	# for i in order1:
+	# 	colour = assign_color([floor_1[i]],[0],0,colors_1,None,cQuant)
+	# 	colors_1[colour].number_left = colors_1[colour].number_left -1
+	# 	#BUG FIX? assigning the color to the node we just found the color to
+	# 	floor_1[i].color = colour 
+	# 	print("Slot: "+str(floor_1[i].slot)+" Color: "+colour)
 	cQuant = 0
-	for i in order1:
-		colour = assign_color([floor_1[i]],[0],0,colors_1,None,cQuant)
-		colors_1[colour].number_left = colors_1[colour].number_left -1
-		#BUG FIX? assigning the color to the node we just found the color to
-		floor_1[i].color = colour 
-		print("Slot: "+str(floor_1[i].slot)+" Color: "+colour)
+	for i in order2:
+		colour = assign_color([floor_2[i]],[0],0,colors_2,None,cQuant)
+		colors_2[colour].number_left = colors_2[colour].number_left -1
+		floor_2[i].color = colour
+		print("Slot: " + str(floor_2[i].slot) + " Color: " + colour)
+

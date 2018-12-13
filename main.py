@@ -19,8 +19,6 @@ class color:
 
 #(list of nodes,index of node, colors objects)
 def assign_color(nodes_to_check,hops,index,colors,final_color,collisionCount):
-	#pdb.set_trace()
-	#print("Node: "+str(nodes_to_check[index].slot)+" Hop: "+str(hops[index]))
 	if final_color != None:						#base case
 		return final_color
 
@@ -35,67 +33,41 @@ def assign_color(nodes_to_check,hops,index,colors,final_color,collisionCount):
 			nodes_to_check.append(n)			#add to list of nodes to check
 			hops.append(hops[index]+1) 			#add to list of hops
 	
-	#for x in nodes_to_check:
-		#print("Nodes to Check: "+str(x.slot))
-	
 	#pdb.set_trace();
 	if (node_n.color != None):					#accounts for already assigned nodes
 		c = colors[node_n.color]	 	
 		if c.collision == None:			#if no collision assign collision value
 			c.collision = hop     	
-		#pdb.set_trace();
-		#ADDING INDEX CHECK               IDEA 1
 		if index + 1 < len(hops):
 			final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color,collisionCount) #Also goes out of index
 			return final_color
-		#else:  							IDEA 2
-			#final_color = assign_color(nodes_to_check,hops,index + 1,colors,final_color)
-		#return final_color
-
 	list_of_colors = []
 	for i in colors:
-		list_of_colors.append(colors[i])
-	#pdb.set_trace()	
+		list_of_colors.append(colors[i])	
 	list_of_colors = most_left(list_of_colors)	#create list of colors in decreasing order of precedence
-
-	#pdb.set_trace()
 	for color in list_of_colors:
 		k = color.k
-		#not sure if color.collision ever gets properly changed 
 		if color.collision == None or color.collision > k: 
-			#print("HOP "+str(hop)+" K "+str(k))
-			if hop <= k: 				#we havnt traveled far enough
+			if hop <= k: 				#we havn't traveled far enough
 
-				#ADDING INDEX CHECK    						IDEA 1
 				if index + 1 < len(hops):
 					final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color,collisionCount) #Problematic asf
 					return final_color
-				#else:										IDEA 2
-					#final_color = assign_color(nodes_to_check,hops,index+1,colors,final_color)
-				#return final_color
 			
 			if hop > k and color.number_left > 0:	#found color to assign
-				#pdb.set_trace();
 				for c in list_of_colors:					#collisions reset to null
 					if c == color.color:
 						collisionCount += 1
-					#c.collision = None
-				#print(color.color)
 				return color.color
 
 	#if we reach this point, every color has a colision or has 0 left to assign
 	collision_colors = []
-	#pdb.set_trace();
 	for color in list_of_colors:				#add colors with collisions to list
 		if color.number_left > 0:				
 			collision_colors.append(color) 		
-			
-		#print(color.color+str(color.k))
-	#pdb.set_trace();
 	if len(collision_colors) > 0:				#return least bad collision
 		collision_colors = most_collide(collision_colors)
 		for c in colors:					#collisions reset to null
-			#bug fix
 			colors[c].collision = None
 		return collision_colors[0].color
 
@@ -110,10 +82,6 @@ def most_left_compare(color1):
 	#CHANGED: Switched
 	return color1.k, color1.number_left
 
-#pass a list of OBj colors (some of them)
-#return list sorted by how bad their collision was as a percentage
-# percentage = collsion / k 
-#larger the percentage, better priority -> 1 being the best 
 def most_collide(colorList):
 	for color in colorList:
 		#Getting an error here 
@@ -125,7 +93,6 @@ def most_collide(colorList):
 	return sorted(colorList,key=most_collide_compare)
 
 def most_collide_compare(color1):
-	#color.numleft switched to color1.k
 	return color1.collision, color1.k
 
 if __name__ == '__main__':
@@ -394,32 +361,6 @@ if __name__ == '__main__':
 		node_84]
 
 #node_x = (slot,"color",[n1,n2...])
-
-#first floor categories
-	# categories_1 = {
-	# 	F_MKT_INFO_MUSIC      :[36,37,11,13],
-	# 	F_PRODUCE             :[7,8,9,16,18,19,20,23,24,28,30,34,43],
-	# 	F_BAKES_GOODS         :[6,17,26,29,33],
-	# 	F_DAIR_MEAT_EGGS      :[39,22,10,5,3,2,1],
-	# 	F_COFFEE_SPECIALTY    :[25,21,15,14,4,35,32,31,44],
-	# 	F_FLOWERS_PLANTS      :[12,40],
-	# 	F_PREPARED_FOODS      :[27,41],
-	# 	F_BEER_WINE_SPIRITS   :[38],
-	# 	F_HANDMADE_GOODS  :[42]
-	# }
-#second floor categories
-	# categories_2 = {
-	# 	S_MKT_INFO_MUSIC      :[72],
-	# 	S_PRODUCE             :[],
-	# 	S_BAKES_GOODS         :[48,49,50,56,79,84,69],
-	# 	S_DAIR_MEAT_EGGS      :[52,55,59],
-	# 	S_COFFEE_SPECIALTY    :[71,51,34,57,58,80,83,61,64,67],
-	# 	S_FLOWERS_PLANTS      :[],
-	# 	S_PREPARED_FOODS      :[45,46,47,70,73,74,75,76,77],
-	# 	S_BEER_WINE_SPIRITS   :[81,78,60,63,65,66],
-	# 	S_HANDMADE_GOODS      :[53,62,68,82]
-	# }
-
 #dictionary of first floor colors
 #colors_1 	COLOR : (K,N)
 	colors_1 = {
